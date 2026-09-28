@@ -52,3 +52,37 @@ const bookingNotes = [["이동 준비", "주차 예약 완료. 하교 직후 출
 const originalRenderDay=renderDay;
 renderDay=function(i){originalRenderDay(i);const content=document.querySelector('#day-content .day-main');const routeHTML=legs[i].map(l=>{const u=new URL('https://www.google.com/maps/dir/');u.search=new URLSearchParams({api:'1',origin:l[4],destination:l[5],travelmode:l[6]}).toString();return `<li><small>${l[0]}</small><h3>${l[1]}</h3><p><strong>${l[2]}</strong> · ${l[3]}</p><a class="map" href="${u}" target="_blank" rel="noopener noreferrer">이 구간 길찾기 ↗</a></li>`}).join('');content.insertAdjacentHTML('afterbegin',`<div class="route-detail"><p class="eyebrow">호텔에서 출발하는 세부 경로</p><p class="muted">아래 시간은 실시간 조회가 아닌 계획용 예상치입니다. 현지시간 기준이며 대기·정체에 따라 달라져요. 길찾기에서 실제 이동 날짜와 출발시간을 설정하세요.</p><ol>${routeHTML}</ol><div class="booking-note"><strong>${bookingNotes[i][0]}</strong><p>${bookingNotes[i][1]}</p></div></div>`);};
 renderDay(1);
+
+/* Lunch and grocery guide — checked 2026-09-28 */
+const lunchPlaces = [
+ ['Fratelli Fresh Darling Harbour','피자·파스타를 나눠 먹고 싶을 때','ICC Sydney Theatre, 14 Darling Drive','서섹스 호텔에서 도보 약 15–20분 예상. 달링하버 남쪽 산책과 묶기 좋아요. 평일 점심은 공식 안내상 12:00부터. 4명 좌석은 예약 권장, 미예약.','https://www.darlingharbour.com/eat-drink/fratelli-fresh'],
+ ['Pancakes on The Rocks · Darling Square','아이들이 좋아할 팬케이크와 식사 메뉴','55–59 Tumbalong Boulevard, Haymarket','서섹스 호텔에서 도보 약 12–18분 예상. 팬케이크만 먹기보다 피자·피시앤칩스 같은 식사 메뉴와 함께 나눠 먹는 것을 추천해요. 더 록스 지점과 구분하세요.','https://www.darlingharbour.com/eat-drink/pancakes-on-the-rocks-darling-square'],
+ ['Auvers Cafe · Darling Square','도착일에 브런치와 커피로 가볍게','12 Nicolle Walk, Haymarket','서섹스 호텔에서 도보 약 12–18분 예상. 프렌치 스타일 브런치와 식사 메뉴가 있는 카페예요. 첫날 컨디션에 맞춰 선택하고 당일 메뉴·좌석 확인.','https://www.darlingharbour.com/eat-drink/auvers-cafe']
+];
+const groceryPlaces = [
+ ['시드니 · Coles World Square','World Square Lower Ground, 644 George Street, Sydney','Meriton Suites Sussex Street Sydney','Coles World Square Sydney','호텔에서 도보 약 10–15분 예상. 달링 스퀘어 점심 → World Square 장보기 → 호텔로 돌아오는 순서 추천. 센터 공식 안내상 매일 06:00–24:00.','https://worldsquare.com.au/shops/coles/'],
+ ['골드코스트 · Woolworths Circle on Cavill','Circle on Cavill, 3184 Surfers Paradise Boulevard','Meriton Suites Surfers Paradise','Woolworths Circle on Cavill Surfers Paradise','호텔에서 도보 약 12–18분 예상. 카빌 애비뉴 구경 후 장보기 좋아요. 매장 공식 안내상 일반 영업 07:00–21:00. 10/5 공휴일 운영은 별도 확인.','https://shoppingatcircleoncavill.com.au/stores/woolworths/'],
+ ['브리즈번 · Woolworths Skygate','Skygate Centre, Brisbane Airport','Novotel Brisbane Airport','Woolworths Skygate Brisbane Airport','노보텔에서 도보 약 5–10분 예상. Skygate 공식 안내상 24시간 운영. 10/7 저녁과 다음 날 새벽에 먹을 빵·과일·간식을 미리 사두세요.','https://www.skygate.com.au/Maps']
+];
+function groceryDirections(g){
+ return 'https://www.google.com/maps/dir/?'+new URLSearchParams({api:'1',origin:g[2],destination:g[3],travelmode:'walking'});
+}
+function lunchGuide(){return '<div class="sources-panel"><h3>달링하버 점심 후보 3곳</h3><p>달링하버 남쪽·달링 스퀘어 중심이에요. 수족관에서는 남쪽으로 더 걸어야 하므로 피곤하면 호텔에서 쉬고 방문해요. 식당은 모두 추천 단계이며 미예약입니다.</p><div class="prep-grid">'+lunchPlaces.map(p=>'<article><h3>'+p[0]+'</h3><p><strong>'+p[1]+'</strong></p><p>'+p[2]+'</p><p>'+p[3]+'</p>'+map(p[0]+' '+p[2])+' · <a class="text-link" href="'+p[4]+'" target="_blank" rel="noopener noreferrer">공식 메뉴·예약 안내 ↗</a></article>').join('')+'</div></div>';}
+function groceryCard(g){return '<article><h3>'+g[0]+'</h3><p>'+g[1]+'</p><p>'+g[4]+'</p><a class="map" href="'+groceryDirections(g)+'" target="_blank" rel="noopener noreferrer">호텔에서 마트까지 길찾기 ↗</a> · <a class="text-link" href="'+g[5]+'" target="_blank" rel="noopener noreferrer">공식 위치·영업 안내 ↗</a></article>';}
+document.querySelector('#hotels').insertAdjacentHTML('beforeend',lunchGuide()+'<div class="sources-panel"><h3>저녁은 장봐서 호텔에서</h3><p>저녁 외식은 선택으로 두고, 낮 일정 마지막에 장을 보는 계획이에요. 아래 도보 시간은 계획용 예상치이며 실제 경로·영업시간은 방문일에 확인하세요.</p><div class="prep-grid">'+groceryPlaces.map(groceryCard).join('')+'</div><p class="note">장보기 예시: 빵·샐러드·과일·요거트·치즈·음료, 매장에 있으면 조리된 치킨이나 즉석식품. 재고는 당일 달라요. 냉장식품은 장본 뒤 바로 호텔로 가져가세요. 가열식품은 객실의 조리·전자레인지 사용 가능 여부를 확인한 뒤 구매하고, 노보텔에서는 가열 없이 먹을 수 있는 음식 위주로 준비해요. 장바구니도 챙기세요.</p><p class="note">위치·메뉴·일반 영업 안내 확인: 2026.9.28 · 공식 매장/쇼핑센터 링크 기준. 공휴일 영업·당일 재고·예약 가능 좌석은 미확인.</p></div>');
+days[1][5][2]=['점심','달링하버 산책 · 점심 후보 선택','피자·파스타는 Fratelli Fresh, 팬케이크는 Pancakes on The Rocks, 가벼운 브런치는 Auvers. 아래 식당 안내에서 위치를 확인해요.','Darling Square Sydney'];
+days[1][5][3][2]='호텔 휴식 후 마트에서 산 음식으로 저녁과 생일 축하. 무료 카드·초콜릿·풍선·와인 준비와 카드 이름 등록은 호텔 확인 완료. 케이크는 별도 준비.';
+days[4][5][2]=['저녁','Coles 장보기 → 호텔에서 식사','저녁 외식은 선택. World Square에서 먹거리와 다음 날 아침을 사서 호텔로 돌아와요.','Coles World Square Sydney'];
+days[5][5][3]=['저녁','가까운 마트 장보기 · 호텔 휴식','이동 후 컨디션이 괜찮으면 Woolworths Circle on Cavill에서 장보기. 피곤하면 간단히 먹고 쉬어요.','Woolworths Circle on Cavill Surfers Paradise'];
+days[6][5][2]=['저녁','Woolworths 장보기 → 호텔 식사','카빌 애비뉴 구경 뒤 마트에 들러요. 10/5 공휴일 영업시간 확인. La Calabrese는 외식하고 싶은 날의 선택 후보.','Woolworths Circle on Cavill Surfers Paradise'];
+days[8][5][2]=['저녁','Skygate 장보기 · 짐 정리','가열 없이 먹을 저녁과 새벽 간식을 사고, 다음 날 차량을 확인한 뒤 일찍 쉬어요.','Woolworths Skygate Brisbane Airport'];
+for(const i of [1,2,3,7]) days[i][5].push(['저녁','마트에서 장봐 호텔 식사','낮 일정 마지막에 장보고 돌아와요. 아래에 숙소 근처 마트 길찾기를 넣었어요.',i===7?'Woolworths Circle on Cavill Surfers Paradise':'Coles World Square Sydney']);
+legs[1][3]=['휴식 후 · 필요할 때','호텔 → Coles World Square 장보기','도보','10–15분 예상','Meriton Suites Sussex Street Sydney','Coles World Square Sydney','walking'];
+legs[4][3]=['저녁 전','호텔 → Coles World Square 장보기','도보','10–15분 예상','Meriton Suites Sussex Street Sydney','Coles World Square Sydney','walking'];
+legs[6][3]=['저녁 전','카빌 애비뉴 → Woolworths 장보기','도보','현장 길찾기 확인','Cavill Avenue Surfers Paradise','Woolworths Circle on Cavill Surfers Paradise','walking'];
+bookingNotes[1]=['호텔 확인 완료 · 저녁은 객실에서','생일 준비·침구·짐 보관 확인 완료. 마트에서 저녁거리 구매. 케이크는 별도 준비이며 원하는 케이크가 있으면 판매처에 재고·주문 가능 여부 확인.'];
+bookingNotes[4]=['쇼핑 · 장보기 중심','QVB·쇼핑 후 Coles 장보기, 호텔에서 저녁. 같은 객실로 계속 숙박하므로 객실 이동 없음.'];
+bookingNotes[6]=['공휴일 마트 영업 확인','기본 저녁은 장봐서 호텔에서 먹어요. 10/5 마트 공휴일 영업을 확인하고, 외식으로 바꾸는 경우만 식당 좌석·추가요금 확인.'];
+const renderWithRoutes=renderDay;
+renderDay=function(i){renderWithRoutes(i);if(i>0&&i<9){const g=groceryPlaces[i<5?0:i<8?1:2];document.querySelector('#day-content').insertAdjacentHTML('beforeend','<div class="sources-panel"><h3>오늘 저녁 · 마트에서 사서 호텔로</h3>'+groceryCard(g)+'<p class="note">도보 시간은 예상치. 냉장식품은 바로 호텔로 가져가고, 가열식품은 객실 조리시설 확인 후 구매하세요.</p></div>');}if(i===1||i===3)document.querySelector('#day-content').insertAdjacentHTML('beforeend',lunchGuide());};
+renderDay(1);
