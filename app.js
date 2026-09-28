@@ -55,7 +55,7 @@ renderDay(1);
 
 /* Lunch and grocery guide — checked 2026-09-28 */
 const lunchPlaces = [
- ['Fratelli Fresh Darling Harbour','피자·파스타를 나눠 먹고 싶을 때','ICC Sydney Theatre, 14 Darling Drive','서섹스 호텔에서 도보 약 15–20분 예상. 달링하버 남쪽 산책과 묶기 좋아요. 평일 점심은 공식 안내상 12:00부터. 4명 좌석은 예약 권장, 미예약.','https://www.darlingharbour.com/eat-drink/fratelli-fresh'],
+ ['Fratelli Fresh Darling Harbour','★ 파스타 우선 추천 · 가족 점심 1순위','ICC Sydney Theatre, 14 Darling Drive','서섹스 호텔에서 도보 약 15–20분 예상. 달링하버 남쪽 산책과 묶기 좋아요. 평일 점심은 공식 안내상 12:00부터. 4명 좌석은 예약 권장, 미예약.','https://www.darlingharbour.com/eat-drink/fratelli-fresh'],
  ['Pancakes on The Rocks · Darling Square','아이들이 좋아할 팬케이크와 식사 메뉴','55–59 Tumbalong Boulevard, Haymarket','서섹스 호텔에서 도보 약 12–18분 예상. 팬케이크만 먹기보다 피자·피시앤칩스 같은 식사 메뉴와 함께 나눠 먹는 것을 추천해요. 더 록스 지점과 구분하세요.','https://www.darlingharbour.com/eat-drink/pancakes-on-the-rocks-darling-square'],
  ['Auvers Cafe · Darling Square','도착일에 브런치와 커피로 가볍게','12 Nicolle Walk, Haymarket','서섹스 호텔에서 도보 약 12–18분 예상. 프렌치 스타일 브런치와 식사 메뉴가 있는 카페예요. 첫날 컨디션에 맞춰 선택하고 당일 메뉴·좌석 확인.','https://www.darlingharbour.com/eat-drink/auvers-cafe']
 ];
@@ -70,7 +70,7 @@ function groceryDirections(g){
 function lunchGuide(){return '<div class="sources-panel"><h3>달링하버 점심 후보 3곳</h3><p>달링하버 남쪽·달링 스퀘어 중심이에요. 수족관에서는 남쪽으로 더 걸어야 하므로 피곤하면 호텔에서 쉬고 방문해요. 식당은 모두 추천 단계이며 미예약입니다.</p><div class="prep-grid">'+lunchPlaces.map(p=>'<article><h3>'+p[0]+'</h3><p><strong>'+p[1]+'</strong></p><p>'+p[2]+'</p><p>'+p[3]+'</p>'+map(p[0]+' '+p[2])+' · <a class="text-link" href="'+p[4]+'" target="_blank" rel="noopener noreferrer">공식 메뉴·예약 안내 ↗</a></article>').join('')+'</div></div>';}
 function groceryCard(g){return '<article><h3>'+g[0]+'</h3><p>'+g[1]+'</p><p>'+g[4]+'</p><a class="map" href="'+groceryDirections(g)+'" target="_blank" rel="noopener noreferrer">호텔에서 마트까지 길찾기 ↗</a> · <a class="text-link" href="'+g[5]+'" target="_blank" rel="noopener noreferrer">공식 위치·영업 안내 ↗</a></article>';}
 document.querySelector('#hotels').insertAdjacentHTML('beforeend',lunchGuide()+'<div class="sources-panel"><h3>저녁은 장봐서 호텔에서</h3><p>저녁 외식은 선택으로 두고, 낮 일정 마지막에 장을 보는 계획이에요. 아래 도보 시간은 계획용 예상치이며 실제 경로·영업시간은 방문일에 확인하세요.</p><div class="prep-grid">'+groceryPlaces.map(groceryCard).join('')+'</div><p class="note">장보기 예시: 빵·샐러드·과일·요거트·치즈·음료, 매장에 있으면 조리된 치킨이나 즉석식품. 재고는 당일 달라요. 냉장식품은 장본 뒤 바로 호텔로 가져가세요. 가열식품은 객실의 조리·전자레인지 사용 가능 여부를 확인한 뒤 구매하고, 노보텔에서는 가열 없이 먹을 수 있는 음식 위주로 준비해요. 장바구니도 챙기세요.</p><p class="note">위치·메뉴·일반 영업 안내 확인: 2026.9.28 · 공식 매장/쇼핑센터 링크 기준. 공휴일 영업·당일 재고·예약 가능 좌석은 미확인.</p></div>');
-days[1][5][2]=['점심','달링하버 산책 · 점심 후보 선택','피자·파스타는 Fratelli Fresh, 팬케이크는 Pancakes on The Rocks, 가벼운 브런치는 Auvers. 아래 식당 안내에서 위치를 확인해요.','Darling Square Sydney'];
+days[1][5][2]=['점심','달링하버 산책 · 점심 후보 선택','★ 파스타 우선 추천은 Fratelli Fresh. 팬케이크는 Pancakes on The Rocks, 가벼운 브런치는 Auvers. 아래 식당 안내에서 위치를 확인해요.','Darling Square Sydney'];
 days[1][5][3][2]='호텔 휴식 후 마트에서 산 음식으로 저녁과 생일 축하. 무료 카드·초콜릿·풍선·와인 준비와 카드 이름 등록은 호텔 확인 완료. 케이크는 별도 준비.';
 days[4][5][2]=['저녁','Coles 장보기 → 호텔에서 식사','저녁 외식은 선택. World Square에서 먹거리와 다음 날 아침을 사서 호텔로 돌아와요.','Coles World Square Sydney'];
 days[5][5][3]=['저녁','가까운 마트 장보기 · 호텔 휴식','이동 후 컨디션이 괜찮으면 Woolworths Circle on Cavill에서 장보기. 피곤하면 간단히 먹고 쉬어요.','Woolworths Circle on Cavill Surfers Paradise'];
