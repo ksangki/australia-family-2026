@@ -22,7 +22,7 @@ jobs:
       - name: Prepare website files
         run: |
           mkdir _site
-          cp index.html app.js gallery.js photo-data.js style.css harbour.jpg .nojekyll _site/
+          cp index.html app.js gallery.js photo-data.js journey-map.js style.css harbour.jpg .nojekyll _site/
           cp -R assets _site/
       - uses: actions/upload-pages-artifact@v3
         with:

@@ -92,3 +92,41 @@
 select:focus-visible{outline:3px solid #a44a00;outline-offset:4px}
 @media(max-width:700px){.tabs button:first-child{grid-column:auto}.photo-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.gallery-filters{gap:12px;padding:16px}.gallery-filters label{flex:1}.gallery-filters select{width:100%;min-width:0}.gallery-filters p{width:100%;margin:0}.photo-card-title{font-size:13px;margin:10px 11px 4px}.photo-card-meta{margin:0 11px;font-size:11px}.record-photo-strip{grid-template-columns:repeat(2,minmax(0,1fr))}.record-photo-strip .photo-card:nth-child(3){display:none}.photo-dialog-inner{padding:12px}.photo-viewer-controls{gap:8px;flex-wrap:wrap}.photo-viewer-controls p{order:-1;flex-basis:100%}.photo-viewer-controls button:last-child{margin-left:auto}.photo-viewer img,.photo-viewer video{max-height:62vh}}
 @media print{.photo-grid{grid-template-columns:repeat(3,1fr)}.gallery-filters,.gallery-more{display:none}.photo-card{break-inside:avoid}.record-photo-strip .photo-card:nth-child(3){display:block}}
+
+.journey-intro{color:var(--muted);max-width:780px}
+.journey-views{display:flex;flex-wrap:wrap;gap:8px;margin:22px 0 16px}
+.journey-views button{border:1px solid var(--line);border-radius:24px;padding:10px 17px;min-height:44px;background:white;color:var(--ink);font-size:14px;font-weight:650}
+.journey-views button[aria-pressed=true]{background:var(--ink);color:white;border-color:var(--ink)}
+.journey-views button:disabled{opacity:.55;cursor:wait}
+.journey-layout{display:grid;grid-template-columns:minmax(0,1fr) 280px;gap:18px;align-items:start}
+.journey-map-panel{min-width:0;background:white;border:1px solid var(--line);border-radius:16px;overflow:hidden}
+#journey-map{height:560px;width:100%;background:#eaf2f5;z-index:0;font-family:inherit}
+.journey-detail{background:white;border:1px solid var(--line);border-radius:16px;padding:22px;max-height:620px;overflow:auto}
+.journey-detail h3{font-size:18px}
+#journey-status{font-size:14px;color:var(--muted)}
+#journey-places{list-style:none;margin:16px 0 0;padding:0}
+#journey-places li+li{border-top:1px solid var(--line)}
+#journey-places button{border:0;background:none;padding:13px 0;text-align:left;color:var(--ink);width:100%;line-height:1.55}
+#journey-places button strong{font-size:15px;display:block}
+#journey-places button span{font-size:13px;display:block;color:var(--muted);margin-top:4px}
+#journey-places button:hover strong{color:var(--teal)}
+.journey-pin span{display:flex;width:30px;height:30px;align-items:center;justify-content:center;border:2px solid white;background:var(--ink);color:white;border-radius:50%;font-size:13px;font-weight:750;box-shadow:0 2px 6px #0004}
+.journey-arrow span{display:block;color:#7155a5;font-size:19px;line-height:20px;text-align:center}
+.journey-label{font-family:inherit;font-size:13px;font-weight:650;white-space:normal;width:max-content;max-width:160px;word-break:keep-all;line-height:1.5;color:var(--ink)}
+#journey-map .leaflet-popup-content{font-family:inherit;font-size:14px;line-height:1.65}
+#journey-map .leaflet-popup-content p{margin:8px 0}
+#journey-map .leaflet-popup-content a{color:var(--teal)}
+.journey-legend{display:flex;gap:18px;flex-wrap:wrap;padding:13px 16px;font-size:13px;color:var(--muted)}
+.journey-legend span{display:flex;align-items:center;gap:8px}
+.journey-legend span:before{content:'';width:28px;border-top:3px dashed var(--teal)}
+.journey-legend .journey-flight:before{border-color:#7155a5}
+.journey-legend .journey-ferry:before{border-color:#287ab7}
+.journey-disclaimer{font-size:14px;color:var(--muted);background:#fff4d5;border-radius:12px;padding:17px 20px;margin:20px 0}
+.journey-warning{padding:12px 16px;margin:0;background:#fff4d5;font-size:14px}
+.journey-order{margin-top:28px}
+.journey-order ol{padding-left:22px}
+.journey-order li{padding:7px 0}
+.journey-order strong{color:var(--teal);margin-right:10px}
+@media(max-width:900px){.journey-layout{grid-template-columns:1fr}.journey-detail{max-height:none}.journey-detail ol{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 18px}#journey-map{height:500px}}
+@media(max-width:700px){.journey-views{gap:6px}.journey-views button{padding:9px 13px;font-size:13px}#journey-map{height:440px}.journey-label{max-width:130px;font-size:12px}.journey-detail{padding:18px}.journey-detail ol{grid-template-columns:1fr}.journey-legend{gap:12px}.journey-order strong{display:block}.journey-disclaimer{padding:16px}}
+@media print{.journey-views{display:none}.journey-layout{display:block}.journey-detail{max-height:none}.journey-order{break-inside:avoid}}

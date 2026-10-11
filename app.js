@@ -28,7 +28,7 @@ days.forEach((d,i)=>{ const b=document.createElement('button');b.className='day-
 function renderDay(i){ const d=days[i];[...picker.children].forEach((b,n)=>{b.classList.toggle('selected',n===i);b.setAttribute('aria-pressed',String(n===i));});document.querySelector('#day-content').innerHTML=`<div class="day-layout"><article class="day-main"><div class="day-title"><div><p class="eyebrow">${d[0]} ${d[1]}요일 · ${d[2]}</p><h2>${d[3]}</h2></div><span class="badge">${d[4]}</span></div><div class="timeline">${d[5].map(s=>`<div class="step"><div class="time">${s[0]}</div><div><h3>${s[1]}</h3><p>${s[2]}</p>${s[3]?map(s[3]):''}</div></div>`).join('')}</div></article><aside><div class="side-card"><p class="eyebrow">오늘 머무는 곳</p><h3>${d[6]}</h3><p class="muted">${i===0?'9/30 아침 도착':i===9?'귀국일': '숙소 예약 완료'}</p>${i>0&&i<9?map(d[6]):''}</div><div class="side-card yellow"><p class="eyebrow">오늘의 메모</p><p>${d[7]}</p>${d[8]?`<a class="text-link" href="${d[8]}" target="_blank" rel="noopener noreferrer">공식 안내 ↗</a>`:''}</div></aside></div>`;}
 const hotels=[['SYDNEY · 4박','Meriton Suites Sussex Street','9/30 수 — 10/4 일','234 Sussex Street, Sydney','객실 연결·킹 1 + 싱글 2 확정 · 체크인 전 짐 보관 가능','https://www.meritonsuites.com.au/our-hotels/nsw/sydney-cbd/sussex-street/'],['GOLD COAST · 3박','Meriton Suites Surfers Paradise','10/4 일 — 10/7 수','86 The Esplanade, Surfers Paradise','해변과 Cypress Avenue 트램 정류장 가까이','https://www.meritonsuites.com.au/our-hotels/qld/gold-coast/surfers-paradise/'],['BRISBANE · 1박','Novotel Brisbane Airport','10/7 수 — 10/8 목','6–8 The Circuit, Brisbane Airport','다음 날 08:40 국제선 · 새벽 공항 이동 확인','https://novotelbrisbaneairport.com.au/']];
 document.querySelector('#hotel-list').innerHTML=hotels.map(h=>`<article class="hotel-card"><p class="city">${h[0]}</p><h3>${h[1]}</h3><p class="date">${h[2]}</p><address>${h[3]}</address><p>${h[4]}</p>${map(h[1]+' '+h[3])} <a class="text-link" href="${h[5]}" target="_blank" rel="noopener noreferrer">호텔 안내 ↗</a></article>`).join('');
-const tabIds=['record','photos','days','hotels','prep','learn'];
+const tabIds=['record','journey','photos','days','hotels','prep','learn'];
 function showTab(tab,updateURL=false){
  if(!tabIds.includes(tab)) return;
  document.querySelectorAll('[data-tab]').forEach(button=>{button.classList.toggle('active',button.dataset.tab===tab);button.setAttribute('aria-pressed',String(button.dataset.tab===tab));});
@@ -36,6 +36,7 @@ function showTab(tab,updateURL=false){
  document.querySelector('#planning-notice').hidden=!['days','hotels','prep'].includes(tab);
  document.querySelector('main > .sources-panel').hidden=!['days','hotels','prep'].includes(tab);
  if(updateURL) history.replaceState(null,'','#'+tab);
+ document.dispatchEvent(new CustomEvent('travel-tab-change',{detail:tab}));
 }
 function tabFromHash(){
  const hash=location.hash.slice(1);
